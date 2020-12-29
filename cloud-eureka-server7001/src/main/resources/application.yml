@@ -1,0 +1,19 @@
+server:
+  port: 7001
+eureka:
+  instance:
+    hostname: eureka7001.com
+#  server:
+#    #关闭自我保存机制，注册的微服务一旦心跳超时未达 直接驱逐
+#    enable-self-preservation: false
+#    #收到最后一次心跳后的驱逐时间
+#    eviction-interval-time-in-ms: 2000
+  client:
+    #不向服务注册中心注册自己
+    register-with-eureka: false
+    #是否从Eureka Server获取注册信息，默认为true。 如果这是一个单点的 Eureka Server，不需要同步其他节点的数据，可以设为false
+    fetch-registry: false
+    #作为Eureka7002的客户端 相互注册 互相守望
+    service-url:
+#      defaultZone: http://eureka7002.com:7002/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/

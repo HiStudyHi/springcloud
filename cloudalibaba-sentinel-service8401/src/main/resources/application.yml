@@ -1,0 +1,28 @@
+server:
+  port: 8401
+spring:
+  application:
+    name: cloudalibaba-sentinel-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        # sentinel 默认为8719，如果被占用会自动+1，直到找到为止；Hystrix需要在主启动类中配置
+        port: 8791
+      datasource: #配置sentinel持久化数据源
+        ds1:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow #流控规则
+#actuator代码
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

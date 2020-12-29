@@ -1,0 +1,17 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      #服务发现地址
+      discovery:
+        server-addr: 192.168.12.140:9800
+
+#把后面要监控的东西暴露出来
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

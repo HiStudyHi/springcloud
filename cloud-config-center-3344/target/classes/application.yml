@@ -1,0 +1,42 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/xcrj/spring-cloud-config.git
+          ##配置文件所在根目录（git远程仓库下配置文件所在目录）
+          search-paths:
+            - spring-cloud-config
+          #远程仓库用户名和密码
+          username: rsjisok@163.com
+          password: 842794250cba
+      #分支
+      label: master
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+#注册中心
+eureka:
+  client:
+    #向服务注册中心注册自己
+    register-with-eureka: true
+    #从Eureka Server获取注册信息，默认为true。
+    fetch-registry: true
+    #给Eureka客户端使用的地址，服务端地址7001，不用输入后面的eureka
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+
+#actuator 暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"

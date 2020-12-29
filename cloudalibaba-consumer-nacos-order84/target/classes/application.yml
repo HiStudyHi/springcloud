@@ -1,0 +1,29 @@
+server:
+  port: 84
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        # sentinel server端默认为8719，如果被占用会自动+1，直到找到为止；Hystrix需要在主启动类中配置
+        port: 8791
+
+service-url:
+  nacos-user-service: http://nacos-payment-provider
+
+#actuator代码
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#激活feign对sentinel的支持
+feign:
+  sentinel:
+    enabled: true

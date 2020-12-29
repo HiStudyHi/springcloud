@@ -1,0 +1,38 @@
+server:
+  port: 3355
+
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      #配置中心地址-从配置中心拿配置
+      uri: http://config-3344.com:3344
+      #拿那个分支的配置 /{label}/{name}-{profile}.yml
+      label: master
+      #配置文件名称 {name}-{profile}.yml
+      name: config
+      profile: dev
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  #注册中心
+eureka:
+  client:
+    #向服务注册中心注册自己
+    register-with-eureka: true
+    #从Eureka Server获取注册信息，默认为true。
+    fetch-registry: true
+    #给Eureka客户端使用的地址，服务端地址7001，不用输入后面的eureka
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+
+#actuator暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

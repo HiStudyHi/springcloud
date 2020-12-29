@@ -1,0 +1,50 @@
+#所有的微服务都写上服务名称和端口号
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service
+  #数据源连接池 驱动 url、用户名、密码
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db2019?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 19971026
+  #服务链路-链路跟踪-数据采集整理
+  sleuth:
+    sampler:
+      #采样率值 介于0到1直接，为1全部采集
+      probability: 1
+  #服务链路-链路跟踪-数据展示
+  zipkin:
+    #采样后的数据发布的地址
+    base-url: http://localhost:9411
+
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.atguigu.springcloud.entities
+
+eureka:
+  instance:
+    instance-id: payment8001
+    #悬停实例id时，左下角显示ip地址
+    prefer-ip-address: true
+#    #Eureka客户端向服务端发送心跳的时间间隔,单位为秒(默认是30秒)
+#    lease-renewal-interval-in-seconds: 1
+#    #Eureka服务端在收到最后一次心跳后等待时间上限 ,单位为秒(默认是90秒),超时剔除服务
+#    lease-expiration-duration-in-seconds: 2
+  #客户端的配置主要是：是否向注册中心注册自己、是否想注册中心获取注册信息；注册中心地址
+  client:
+    #向服务注册中心注册自己
+    register-with-eureka: true
+    #从Eureka Server获取注册信息，默认为true。
+    fetch-registry: true
+    #给Eureka客户端使用的地址，服务端地址7001，不用输入后面的eureka
+    service-url:
+#      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/

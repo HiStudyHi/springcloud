@@ -1,0 +1,47 @@
+server:
+  port: 8803
+
+spring:
+  application:
+    name: cloud-stream-consumer8803
+  cloud:
+    stream: #！！！绑定器 绑定一个 作为生产者(output)或消费者(input)  应用程序
+      binders: #此处配置要绑定的消息中间件的服务信息
+        testBinder: #绑定器名称，用于binding整合
+          type: rabbit #消息中间件类型
+          environment: #消息中间件相关环境配置
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings: #
+        #输入通道名称
+        input:
+          #要使用的rabbitmq交换机名称
+          destination: studyExchange
+          #消息类型
+          content-type: application/json
+          #绑定器名称
+          default-binder: testBinder
+          group: atguiguA
+
+eureka:
+  #客户端的配置主要是：是否向注册中心注册自己、是否想注册中心获取注册信息；注册中心地址
+  client:
+    #向服务注册中心注册自己
+    register-with-eureka: true
+    #从Eureka Server获取注册信息，默认为true。
+    fetch-registry: true
+    #给Eureka客户端使用的地址，服务端地址7001，不用输入后面的eureka
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 2 #心跳间隔时间（默认30秒）
+    lease-expiration-duration-in-seconds: 5 #收到最后一次心跳后等待时间（默认90秒）
+    instance-id: receive-8803.com #微服务实例名称
+    prefer-ip-address: true #指针悬浮显示ip
+
+
+

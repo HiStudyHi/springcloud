@@ -1,0 +1,20 @@
+server:
+  port: 3377
+
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      #服务注册与发现
+      discovery:
+#        server-addr: 192.168.12.140:9800
+        server-addr: localhost:8848
+      #服务配置 配置中心
+      config:
+#        server-addr: 192.168.12.140:9800
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEV_GROUP
+#        namespace: 8e6f28e8-82ff-4952-b9a4-c4d01e1ada00
+        namespace: 0ebcac2e-67e3-4b3e-9b02-c842ea05ab3b
